@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomada - لأن السفر ليس مجرد انتقال، بل أسلوب حياة</title>
+    <meta name="description" content="منصة سفر عربية متكاملة لحجز تذاكر الطيران، الفنادق، والجولات السياحية بأسعار تنافسية">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1a365d",
+                        secondary: "#2c5282",
+                        accent: "#ecc94b"
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        /* Smooth page transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-800">
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold text-primary" onclick="switchPage('home')">
+                    <span class="text-accent">Nomada</span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 space-x-reverse">
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('home')">الرئيسية</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('flights')">حجز الطيران</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('hotels')">الفنادق</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('packages')">الباقات السياحية</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('blog')">المدونة</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('contact')">اتصل بنا</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-primary focus:outline-none" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('home')">الرئيسية</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('flights')">حجز الطيران</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('hotels')">الفنادق</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('packages')">الباقات السياحية</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('blog')">المدونة</a>
+                <a href="#" class="hover:text-accent transition-colors" onclick="switchPage('contact')">اتصل بنا</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active-page">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-primary to-secondary text-white py-16">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">لأن السفر ليس مجرد انتقال، بل أسلوب حياة</h1>
+                    <p class="text-xl mb-8">منصة سفر عربية متكاملة تقدم تجربة ذكية ومبسطة لحجز تذاكر الطيران، الفنادق، والجولات السياحية</p>
+                    <button class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-yellow-400 transition-colors" onclick="switchPage('flights')">
+                        ابدأ رحلتك الآن
+                    </button>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/600/400?random=1" alt="مسافر سعيد" class="rounded-lg shadow-xl" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">ما نقدمه لك</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">حجز طيران</h3>
+                        <p>حجز تذاكر الطيران حول العالم بسهولة وأسعار تنافسية</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">حجز فنادق</h3>
+                        <p>اختر من بين آلاف الفنادق والشقق بأسعار مميزة</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-suitcase-rolling"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">باقات سياحية</h3>
+                        <p>عروض مخصصة للعرسان، العائلات والمغامرين</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-4">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">دعم فوري</h3>
+                        <p>خدمة دعم مباشر على مدار الساعة</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinations Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">وجهاتنا الشهيرة</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://picsum.photos/600/400?random=2" alt="دبي" class="w-full h-64 object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 p-4 text-white">
+                            <h3 class="text-xl font-bold">دبي</h3>
+                            <p>مدينة الأحلام والرفاهية</p>
+                        </div>
+                    </div>
+                    <div class="relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://picsum.photos/600/400?random=3" alt="إسطنبول" class="w-full h-64 object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 p-4 text-white">
+                            <h3 class="text-xl font-bold">إسطنبول</h3>
+                            <p>حيث يلتقي الشرق بالغرب</p>
+                        </div>
+                    </div>
+                    <div class="relative rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://picsum.photos/600/400?random=4" alt="ماليزيا" class="w-full h-64 object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 p-4 text-white">
+                            <h3 class="text-xl font-bold">ماليزيا</h3>
+                            <p>جنة الطبيعة والثقافة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-primary text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-6">مع Nomada، رحلتك تبدأ من هنا</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">لا تحتاج إلى التخطيط المُرهق — نحن نمنحك الأدوات، الأفكار، والدعم لتجعل رحلتك سهلة، ممتعة ولا تُنسى.</p>
+                <button class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-yellow-400 transition-colors" onclick="switchPage('flights')">
+                    ابدأ رحلتك الآن
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Flights Page -->
+    <div id="flights" class="page">
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold mb-8">حجز تذاكر الطيران</h1>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-4">ابحث عن رحلات الطيران</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">المدينة الأصل</label>
+                            <input type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="أين تبدأ رحلتك؟">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">المدينة الوجهة</label>
+                            <input type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="إلى أين تريد الذهاب؟">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاريخ الذهاب</label>
+                            <input type="date" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاريخ العودة</label>
+                            <input type="date" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                    </div>
+                    <button class="mt-4 bg-primary text-white font-bold px-6 py-2 rounded hover:bg-secondary transition-colors">
+                        بحث عن الرحلات
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-lg">دبي (DXB)</h3>
+                                    <p class="text-gray-600">الرياض (RUH) → دبي (DXB)</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-600">الثلاثاء، 15 نوفمبر</p>
+                                    <p class="font-bold text-primary">1,250 ر.س</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="https://picsum.photos/100?random=5" alt="طيران الإمارات" class="w-12 h-12 mr-4">
+                                    <div>
+                                        <p class="font-bold">طيران الإمارات</p>
+                                        <p class="text-gray-600">EK 203 | طائرة A380</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold">02:30 ساعة</p>
+                                    <p class="text-gray-600">رحلة مباشرة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 flex justify-end">
+                            <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                احجز الآن
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-lg">إسطنبول (IST)</h3>
+                                    <p class="text-gray-600">الرياض (RUH) → إسطنبول (IST)</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-600">الأحد، 20 نوفمبر</p>
+                                    <p class="font-bold text-primary">1,850 ر.س</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <img src="https://picsum.photos/100?random=6" alt="الخطوط التركية" class="w-12 h-12 mr-4">
+                                    <div>
+                                        <p class="font-bold">الخطوط التركية</p>
+                                        <p class="text-gray-600">TK 144 | طائرة B777</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold">04:15 ساعة</p>
+                                    <p class="text-gray-600">رحلة مباشرة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 flex justify-end">
+                            <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                احجز الآن
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Hotels Page -->
+    <div id="hotels" class="page">
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold mb-8">حجز الفنادق</h1>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-4">ابحث عن فنادق</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">الوجهة</label>
+                            <input type="text" class="w-full p-2 border border-gray-300 rounded" placeholder="أين تريد الإقامة؟">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاريخ الوصول</label>
+                            <input type="date" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">تاريخ المغادرة</label>
+                            <input type="date" class="w-full p-2 border border-gray-300 rounded">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">عدد الضيوف</label>
+                            <select class="w-full p-2 border border-gray-300 rounded">
+                                <option>1 ضيف</option>
+                                <option>2 ضيف</option>
+                                <option>3 ضيف</option>
+                                <option>4 ضيف</option>
+                                <option>5+ ضيف</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="mt-4 bg-primary text-white font-bold px-6 py-2 rounded hover:bg-secondary transition-colors">
+                        بحث عن الفنادق
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=7" alt="فندق برج العرب" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl mb-2">فندق برج العرب</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 ml-2">5 نجوم</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">دبي، الإمارات العربية المتحدة</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-bold text-primary">1,250 ر.س / ليلة</p>
+                                <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                    احجز الآن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=8" alt="فندق شيراتون جراند إسطنبول" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl mb-2">فندق شيراتون جراند إسطنبول</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 ml-2">5 نجوم</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">إسطنبول، تركيا</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-bold text-primary">850 ر.س / ليلة</p>
+                                <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                    احجز الآن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=9" alt="فندق الماسة الذهبية" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-xl mb-2">فندق الماسة الذهبية</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 ml-2">4 نجوم</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">كوالالمبور، ماليزيا</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-bold text-primary">650 ر.س / ليلة</p>
+                                <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                    احجز الآن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Packages Page -->
+    <div id="packages" class="page">
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold mb-8">الباقات السياحية</h1>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-4">ابحث عن الباقات السياحية</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">الوجهة</label>
+                            <select class="w-full p-2 border border-gray-300 rounded">
+                                <option>اختر وجهة</option>
+                                <option>دبي، الإمارات</option>
+                                <option>إسطنبول، تركيا</option>
+                                <option>كوالالمبور، ماليزيا</option>
+                                <option>باريس، فرنسا</option>
+                                <option>لندن، المملكة المتحدة</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">نوع الرحلة</label>
+                            <select class="w-full p-2 border border-gray-300 rounded">
+                                <option>اختر نوع الرحلة</option>
+                                <option>عائلية</option>
+                                <option>عرسان</option>
+                                <option>أصدقاء</option>
+                                <option>مغامرات</option>
+                                <option>ثقافية</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">الميزانية</label>
+                            <select class="w-full p-2 border border-gray-300 rounded">
+                                <option>أي ميزانية</option>
+                                <option>اقتصادية (حتى 5,000 ر.س)</option>
+                                <option>متوسطة (5,000 - 10,000 ر.س)</option>
+                                <option>فاخرة (10,000+ ر.س)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="mt-4 bg-primary text-white font-bold px-6 py-2 rounded hover:bg-secondary transition-colors">
+                        بحث عن الباقات
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/800/400?random=10" alt="باقة عائلية إلى دبي" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="font-bold text-xl">باقة عائلية إلى دبي</h3>
+                                <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">الأكثر طلباً</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">استمتع بإجازة عائلية لا تنسى في مدينة الأحلام دبي مع إقامة في فندق 5 نجوم وتذاكر دخول لأهم المعالم السياحية.</p>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-calendar-alt text-primary mr-2"></i>
+                                <span class="text-gray-600">5 أيام / 4 ليالي</span>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-hotel text-primary mr-2"></i>
+                                <span class="text-gray-600">فندق 5 نجوم مع إفطار</span>
+                            </div>
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-plane text-primary mr-2"></i>
+                                <span class="text-gray-600">تذاكر طيران ذهاب وعودة</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="font-bold text-primary text-xl">4,999 ر.س / للشخص</p>
+                                <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                    احجز الآن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/800/400?random=11" alt="باقة عرسان إلى ماليزيا" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="font-bold text-xl">باقة عرسان إلى ماليزيا</h3>
+                                <span class="bg-secondary text-white px-3 py-1 rounded-full text-sm">رومانسية</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">إجازة رومانسية لا تنسى في جنة ماليزيا مع إقامة في منتجع خاص للعرسان وتجارب فريدة لشهر العسل.</p>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-calendar-alt text-primary mr-2"></i>
+                                <span class="text-gray-600">7 أيام / 6 ليالي</span>
+                            </div>
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-hotel text-primary mr-2"></i>
+                                <span class="text-gray-600">منتجع 5 نجوم للعرسان</span>
+                            </div>
+                            <div class="flex items-center mb-6">
+                                <i class="fas fa-plane text-primary mr-2"></i>
+                                <span class="text-gray-600">تذاكر طيران ذهاب وعودة</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="font-bold text-primary text-xl">7,999 ر.س / للشخص</p>
+                                <button class="bg-accent text-primary font-bold px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
+                                    احجز الآن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blog" class="page">
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold mb-8">مدونة السفر</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=12" alt="أفضل 10 أنشطة في دبي" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-primary font-bold text-sm">دليل السفر</span>
+                            <h3 class="font-bold text-xl my-2">أفضل 10 أنشطة في دبي</h3>
+                            <p class="text-gray-600 mb-4">اكتشف أفضل الأنشطة والتجارب التي يمكنك القيام بها في مدينة دبي لتحقيق أقصى استفادة من رحلتك.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500 text-sm">15 نوفمبر 2023</span>
+                                <a href="#" class="text-primary font-bold hover:underline" onclick="event.preventDefault()">اقرأ المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=13" alt="نصائح السفر للعائلات" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-primary font-bold text-sm">نصائح السفر</span>
+                            <h3 class="font-bold text-xl my-2">نصائح السفر للعائلات</h3>
+                            <p class="text-gray-600 mb-4">كل ما تحتاج معرفته لتنظيم رحلة عائلية ناجحة وخالية من المتاعب مع الأطفال.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500 text-sm">5 نوفمبر 2023</span>
+                                <a href="#" class="text-primary font-bold hover:underline" onclick="event.preventDefault()">اقرأ المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=14" alt="أشهر الأسواق في إسطنبول" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <span class="text-primary font-bold text-sm">تجارب محلية</span>
+                            <h3 class="font-bold text-xl my-2">أشهر الأسواق في إسطنبول</h3>
+                            <p class="text-gray-600 mb-4">دليل شامل لأشهر الأسواق الشعبية في إسطنبول حيث يمكنك العثور على أفضل المنتجات بأسعار مميزة.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500 text-sm">25 أكتوبر 2023</span>
+                                <a href="#" class="text-primary font-bold hover:underline" onclick="event.preventDefault()">اقرأ المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold mb-8">اتصل بنا</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-bold mb-4">تواصل مع فريق الدعم</h2>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">الاسم الكامل</label>
+                                <input type="text" class="w-full p-2 border border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">البريد الإلكتروني</label>
+                                <input type="email" class="w-full p-2 border border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">رقم الهاتف</label>
+                                <input type="tel" class="w-full p-2 border border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">الموضوع</label>
+                                <select class="w-full p-2 border border-gray-300 rounded">
+                                    <option>استفسار عام</option>
+                                    <option>حجز طيران</option>
+                                    <option>حجز فندق</option>
+                                    <option>باقة سياحية</option>
+                                    <option>مشكلة تقنية</option>
+                                    <option>شكوى</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">الرسالة</label>
+                                <textarea class="w-full p-2 border border-gray-300 rounded" rows="4"></textarea>
+                            </div>
+                            <button class="bg-primary text-white font-bold px-6 py-2 rounded hover:bg-secondary transition-colors">
+                                إرسال الرسالة
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                            <h2 class="text-xl font-bold mb-4">معلومات الاتصال</h2>
+                            <div class="flex items-start mb-4">
+                                <i class="fas fa-map-marker-alt text-primary text-xl mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-bold">العنوان</p>
+                                    <p class="text-gray-600">المملكة العربية السعودية، الرياض، حي المروج، شارع الملك فهد</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start mb-4">
+                                <i class="fas fa-phone-alt text-primary text-xl mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-bold">الهاتف</p>
+                                    <p class="text-gray-600">+966 12 345 6789</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start mb-4">
+                                <i class="fas fa-envelope text-primary text-xl mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-bold">البريد الإلكتروني</p>
+                                    <p class="text-gray-600">info@nomada.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-primary text-xl mt-1 mr-4"></i>
+                                <div>
+                                    <p class="font-bold">ساعات العمل</p>
+                                    <p class="text-gray-600">من الأحد إلى الخميس: 8 صباحاً - 5 مساءً</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h2 class="text-xl font-bold mb-4">تابعنا على وسائل التواصل</h2>
+                            <div class="flex space-x-4 space-x-reverse">
+                                <a href="#" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors" onclick="event.preventDefault()">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition-colors" onclick="event.preventDefault()">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="bg-pink-600 text-white p-3 rounded-full hover:bg-pink-700 transition-colors" onclick="event.preventDefault()">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors" onclick="event.preventDefault()">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-accent">Nomada</h3>
+                    <p>منصة سفر عربية متكاملة تقدم تجربة ذكية ومبسطة لحجز تذاكر الطيران، الفنادق، والجولات السياحية.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">روابط سريعة</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('home')">الرئيسية</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('flights')">حجز الطيران</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('hotels')">الفنادق</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('blog')">المدونة</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">خدماتنا</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('flights')">حجز الطيران</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('hotels')">حجز الفنادق</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('packages')">الباقات السياحية</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors" onclick="switchPage('contact')">التأشيرات</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">تواصل معنا</h3>
+                    <div class="flex space-x-4 space-x-reverse mb-4">
+                        <a href="#" class="text-2xl hover:text-accent transition-colors" onclick="event.preventDefault()"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-accent transition-colors" onclick="event.preventDefault()"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-accent transition-colors" onclick="event.preventDefault()"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p>البريد الإلكتروني: info@nomada.com</p>
+                    <p>الهاتف: +966 12 345 6789</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>© 2023 Nomada. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation items data
+        const navItems = [
+            { "id": 1, "label": "الرئيسية", "url": "#", "page": "home" },
+            { "id": 2, "label": "حجز الطيران", "url": "#", "page": "flights" },
+            { "id": 3, "label": "الفنادق", "url": "#", "page": "hotels" },
+            { "id": 4, "label": "الباقات السياحية", "url": "#", "page": "packages" },
+            { "id": 5, "label": "المدونة", "url": "#", "page": "blog" },
+            { "id": 6, "label": "اتصل بنا", "url": "#", "page": "contact" }
+        ];
+
+        // Switch between pages
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set home as default page
+            switchPage('home');
+            
+            // Prevent default anchor behavior
+            document.querySelectorAll('a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
